@@ -1,0 +1,5 @@
+syntax: glob
+.DS_Store
+fabfile.py*
+node_modules/**/*
+*.logs/**
