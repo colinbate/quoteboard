@@ -1,0 +1,45 @@
+body {
+	font-family: "Lucida Grande", "Arial", sans-serif;
+	text-align: center;
+}
+
+#quoteboard {
+	width:  900px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#quotelist {
+	list-style: none;
+	padding: 0;
+}
+
+.quote {
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	padding: 8px;
+}
+
+.quote .saying {
+	font-weight: bold;
+	display: block
+}
+.quote .author {
+	display: block;
+}
+.quote .author:before {
+	content: '~ ';
+}
+.quote .date {
+	font-size: 8px;
+	color: #808080;
+}
+
+#entry {
+	width: 600px;
+}
+#inputsaying {
+	font-size: 14pt;
+	padding: 5px;
+	width: 100%;
+}

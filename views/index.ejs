@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title><%= title %></title>
+		<link rel="stylesheet" href="/style/default.css" type="text/css">
+    </head>
+    <body>
+        <h1><%= title %></h1>
+		<div id="quoteboard">
+			<button data-bind="click: openNewQuote">New Quote</button>
+			<div id="entry" data-bind="visible: showNewQuote">
+				<form action="/quotes" method="post" data-bind="submit: saveQuote">
+					<input type="text" placeholder="Saying" id="inputsaying" size="40" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true">
+					<input type="text" placeholder="Author" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'">
+					<input type="date" data-bind="value: newDay">
+					<button type="submit">Add</button> <a href="#" data-bind="click: closeNewQuote">Cancel</a>
+				</form>
+			</div>
+			<ul id="quotelist" data-bind="foreach: quotes">
+                <li class="quote">
+                    <span class="saying" data-bind="text: saying"></span>
+                    <span class="author" data-bind="text: author"></span>
+                    <span class="date" data-bind="text: day"></span>
+                </li>
+            </ul>
+		</div>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.1.0.js" type="text/javascript"></script>
+		<!--<script src="/socket.io/socket.io.js"></script>-->
+		<script src="/js/quotes.js"></script>
+    </body>
+</html>

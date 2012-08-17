@@ -1,0 +1,26 @@
+{
+  "name": "quoteboard",
+  "description": "Simple quote board for an office environment",
+  "version": "0.1.0",
+  "repository": {
+    "type": "mercurial",
+    "url": "http://code.orbisaccess.com/misc/quoteboard"
+  },
+  "author": "Colin Bate <colin.bate@orbis.com>",
+  "keywords": [
+    "quote",
+    "quotes",
+    "sayings",
+    "cms"
+  ],
+  "main": "./server.js",
+  "dependencies": {
+    "express": "3.x.x",
+    "ejs": ">=0.8.0"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  }
+}
