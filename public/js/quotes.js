@@ -30,9 +30,15 @@
 		saveQuote: function() {
 			//socket.emit('saveQuote', { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() });
 			var self = this;
-			// Needs validation. :)
+			if (!this.quoteValid()) {
+				return;
+			}
 			var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() };
 			postJsonData('/quotes', payload, function(data) {
+				if (data && data.err) {
+					alert(data.err.message);
+					return;
+				}
 				if(data && data.quote) {
 					self.quotes.unshift(data.quote);
 				}
@@ -40,6 +46,9 @@
 			this.closeNewQuote();
 		}
 	};
+	quoteBoardModel.quoteValid = ko.computed(function () {
+		return !!this.newSaying() && this.newSaying().length > 2 && !!this.newAuthor();
+	}, quoteBoardModel);
 
 	jQuery.ajax('/quotes', {
 		success: function(data) {
