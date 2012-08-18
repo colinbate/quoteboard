@@ -16,6 +16,10 @@ var Quote = function(saying, author, day) {
 	this.day = day || new Date();
 }
 
+Quote.prototype.isValid = function () {
+	return !!this.saying && !!this.author;
+};
+
 var quoteList = [];
 
 app.get('/', function(req, res){
@@ -28,10 +32,13 @@ app.get('/quotes', function(req, res) {
 
 app.post('/quotes', function(req, res) {
 	if(req.body) {
-		// Requires server-side validation
 		var q = new Quote(req.body.saying, req.body.author, req.body.day);
-		quoteList.unshift(q);
-		res.send({ quote: q });
+		if (q.isValid()) {
+			quoteList.unshift(q);
+			res.send({ quote: q });
+		} else {
+			res.send({ err: { message: 'Quote is not valid' } });
+		}
 	}
 });
 

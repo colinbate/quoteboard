@@ -14,7 +14,7 @@
 					<input type="text" placeholder="Saying" id="inputsaying" size="40" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true">
 					<input type="text" placeholder="Author" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'">
 					<input type="date" data-bind="value: newDay">
-					<button type="submit">Add</button> <a href="#" data-bind="click: closeNewQuote">Cancel</a>
+					<button type="submit" data-bind="enable: quoteValid">Add</button> <a href="#" data-bind="click: closeNewQuote">Cancel</a>
 				</form>
 			</div>
 			<ul id="quotelist" data-bind="foreach: quotes">
