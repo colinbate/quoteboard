@@ -6,8 +6,8 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 
 ## Roadmap / TODO
 
- * Add client-side validation
- * Add server-side validation
+ * Add client-side validation (done)
+ * Add server-side validation (done)
  * Add persistence (this is probably the most important)
  * Add error handlings of ajax calls
  * Make better looking
