@@ -1,44 +1,35 @@
-(function() {
+/*globals ko: false, quoteboard: false */
+/*jslint vars: true, browser: true */
+(function () {
+	"use strict";
+	var qb = window.quoteboard;
 	//var socket = io.connect('http://localhost:3000');
-	var postJsonData = function(url, payload, success) {
-		jQuery.ajax(url, {
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify(payload), // would need shim for older IE.
-			success: success
-			// TODO: add error handling
-		});
-	}
 
 	var quoteBoardModel = {
 		quotes: ko.observableArray([]),
 		showNewQuote: ko.observable(false),
+		loaded: ko.observable(false),
 		newSaying: ko.observable(),
 		newAuthor: ko.observable(),
 		newDay: ko.observable(),
 
-		openNewQuote: function() {
+		openNewQuote: function () {
 			this.showNewQuote(true);
 		},
-		closeNewQuote: function() {
+		closeNewQuote: function () {
 			this.newSaying('');
 			this.newAuthor('');
 			this.newDay('');
 			this.showNewQuote(false);
 		},
-		saveQuote: function() {
+		saveQuote: function () {
 			//socket.emit('saveQuote', { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() });
 			var self = this;
 			if (!this.quoteValid()) {
 				return;
 			}
 			var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() };
-			postJsonData('/quotes', payload, function(data) {
-				if (data && data.err) {
-					alert(data.err.message);
-					return;
-				}
+			qb.util.postJsonData('/quotes', payload, function (data) {
 				if(data && data.quote) {
 					self.quotes.unshift(data.quote);
 				}
@@ -50,11 +41,9 @@
 		return !!this.newSaying() && this.newSaying().length > 2 && !!this.newAuthor();
 	}, quoteBoardModel);
 
-	jQuery.ajax('/quotes', {
-		success: function(data) {
-			if(data && data.quotes) {
-				quoteBoardModel.quotes(data.quotes);
-			}
+	qb.util.getAjaxData('/quotes', function (data) {
+		if(data && data.quotes) {
+			quoteBoardModel.quotes(data.quotes);
 		}
 	});
 
@@ -67,4 +56,5 @@
 	*/
 
 	ko.applyBindings(quoteBoardModel);
+	quoteBoardModel.loaded(true);
 } ());

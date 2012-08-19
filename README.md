@@ -8,7 +8,7 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 
  * Add client-side validation (done)
  * Add server-side validation (done)
- * Add persistence (this is probably the most important)
+ * Add persistence (this is probably the most important, but not the most urgent)
  * Add error handlings of ajax calls
  * Make better looking
 	 * Add transitions when adding new items

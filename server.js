@@ -17,7 +17,7 @@ var Quote = function(saying, author, day) {
 }
 
 Quote.prototype.isValid = function () {
-	return !!this.saying && !!this.author;
+	return !!this.saying && !!this.author && this.author !== 'Colin';
 };
 
 var quoteList = [];
