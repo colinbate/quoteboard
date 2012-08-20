@@ -9,6 +9,7 @@
 		quotes: ko.observableArray([]),
 		showNewQuote: ko.observable(false),
 		loaded: ko.observable(false),
+		initialData: ko.observable(false),
 		newSaying: ko.observable(),
 		newAuthor: ko.observable(),
 		newDay: ko.observable(),
@@ -40,10 +41,16 @@
 	quoteBoardModel.quoteValid = ko.computed(function () {
 		return !!this.newSaying() && this.newSaying().length > 2 && !!this.newAuthor();
 	}, quoteBoardModel);
+	quoteBoardModel.addQuote = function (elem) {
+		if (elem.nodeType === 1 && quoteBoardModel.initialData()) {
+			qb.util.showAndHighlight(elem);
+		}
+	};
 
 	qb.util.getAjaxData('/quotes', function (data) {
 		if(data && data.quotes) {
 			quoteBoardModel.quotes(data.quotes);
+			quoteBoardModel.initialData(true);
 		}
 	});
 

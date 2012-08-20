@@ -88,6 +88,30 @@
 
 		showMessage: function (txt, afterClose) {
 			notification(txt, 'alert', afterClose);
+		},
+
+		highlight: function (elem) {
+			jQuery(elem).effect('highlight', {}, 2000);
+		},
+
+		showAndHighlight: function (elem) {
+			var self = this;
+			jQuery(elem).hide().slideDown(function () {
+				self.highlight(elem);
+			})
+		},
+
+		spinner: function (target, start) {
+			var action = start ? 'spin' : 'stop';
+			var existing = domDatum(target, 'spinner');
+			if (existing) {
+				existing[action]();
+				return existing;
+			} else {
+				var spinner = new Spinner().spin(target);
+				domDatum(target, 'spinner', spinner);
+				return spinner;
+			}
 		}
 	};
 }());
