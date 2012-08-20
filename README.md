@@ -18,4 +18,4 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
  * Add the ability to provide context for quotes
  * Support multi-line quotes (done)
  * Auto-completion for former "authors"
- * Create IDs for quotes so that we can periodically check if new ones exist
+ * Create IDs for quotes so that we can periodically check if new ones exist (done)

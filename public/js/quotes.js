@@ -51,6 +51,18 @@
 		}
 	};
 
+	var refreshQuoteList = function () {
+		var payload = { lastId: quoteBoardModel.lastId };
+		qb.util.getAjaxData('/quotes/new', payload, function (data) {
+			if (data && data.quotes) {
+				qb.util.unshiftArray(quoteBoardModel.quotes, data.quotes);
+			}
+			if (data) {
+				quoteBoardModel.lastId = data.lastId;
+			}
+		});
+	}
+
 	qb.util.getAjaxData('/quotes', function (data) {
 		if (data && data.quotes) {
 			quoteBoardModel.quotes(data.quotes);
@@ -60,6 +72,9 @@
 			quoteBoardModel.lastId = data.lastId;
 		}
 	});
+
+	// Refresh every couple minutes
+	setInterval(refreshQuoteList, 120000);
 
 	ko.applyBindings(quoteBoardModel);
 	quoteBoardModel.loaded(true);
