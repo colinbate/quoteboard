@@ -3,10 +3,10 @@
 (function () {
 	"use strict";
 	var qb = window.quoteboard;
-	//var socket = io.connect('http://localhost:3000');
 
 	var quoteBoardModel = {
 		quotes: ko.observableArray([]),
+		lastId: undefined,
 		showNewQuote: ko.observable(false),
 		loaded: ko.observable(false),
 		initialData: ko.observable(false),
@@ -24,23 +24,27 @@
 			this.showNewQuote(false);
 		},
 		saveQuote: function () {
-			//socket.emit('saveQuote', { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() });
 			var self = this;
 			if (!this.quoteValid()) {
 				return;
 			}
-			var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay() };
+			var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay(), lastId: this.lastId };
 			qb.util.postJsonData('/quotes', payload, function (data) {
-				if(data && data.quote) {
-					self.quotes.unshift(data.quote);
+				if (data && data.quotes) {
+					qb.util.unshiftArray(self.quotes, data.quotes);
+				}
+				if (data && data.lastId) {
+					self.lastId = data.lastId;
 				}
 			});
 			this.closeNewQuote();
 		}
 	};
+	
 	quoteBoardModel.quoteValid = ko.computed(function () {
 		return !!this.newSaying() && this.newSaying().length > 2 && !!this.newAuthor();
 	}, quoteBoardModel);
+
 	quoteBoardModel.addQuote = function (elem) {
 		if (elem.nodeType === 1 && quoteBoardModel.initialData()) {
 			qb.util.showAndHighlight(elem);
@@ -48,19 +52,14 @@
 	};
 
 	qb.util.getAjaxData('/quotes', function (data) {
-		if(data && data.quotes) {
+		if (data && data.quotes) {
 			quoteBoardModel.quotes(data.quotes);
 			quoteBoardModel.initialData(true);
 		}
+		if (data && data.lastId) {
+			quoteBoardModel.lastId = data.lastId;
+		}
 	});
-
-	/* for interest's sake, I'm leaving this in for now.
-	socket.on('newQuote', function(data) {
-	if(data && data.quote) {
-	quoteBoardModel.quotes.unshift(data.quote);
-	}
-	});
-	*/
 
 	ko.applyBindings(quoteBoardModel);
 	quoteBoardModel.loaded(true);

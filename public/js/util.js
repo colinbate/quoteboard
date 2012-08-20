@@ -60,6 +60,11 @@
 		}
 	};
 
+	var unshiftArray = function (original, newRange) {
+		// apply the KO version of unshift.
+		original.unshift.apply(original, newRange);
+	};
+
 	window.quoteboard.util = {
 
 		postJsonData: function (url, payload, success) {
@@ -89,6 +94,8 @@
 		showMessage: function (txt, afterClose) {
 			notification(txt, 'alert', afterClose);
 		},
+
+		unshiftArray: unshiftArray,
 
 		highlight: function (elem) {
 			jQuery(elem).effect('highlight', {}, 2000);
