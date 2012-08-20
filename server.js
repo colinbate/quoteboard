@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
+var dateformat = require('dateformat');
 //var io = require('socket.io').listen(server);
 
 app.configure(function () {
@@ -13,7 +14,14 @@ app.configure(function () {
 var Quote = function(saying, author, day) {
 	this.saying = saying;
 	this.author = author;
-	this.day = day || new Date();
+	if (!day) {
+		day = new Date();
+	}
+	if (!(day instanceof Date)) {
+		day = new Date(day);
+	}
+	this.day = day;
+	this.displayDate = dateformat(day, 'mediumDate');
 }
 
 Quote.prototype.isValid = function () {
