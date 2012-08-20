@@ -33,7 +33,7 @@
 				if (data && data.quotes) {
 					qb.util.unshiftArray(self.quotes, data.quotes);
 				}
-				if (data && data.lastId) {
+				if (data) {
 					self.lastId = data.lastId;
 				}
 			});
@@ -56,7 +56,7 @@
 			quoteBoardModel.quotes(data.quotes);
 			quoteBoardModel.initialData(true);
 		}
-		if (data && data.lastId) {
+		if (data) {
 			quoteBoardModel.lastId = data.lastId;
 		}
 	});
