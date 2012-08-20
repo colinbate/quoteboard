@@ -80,9 +80,18 @@
 			});
 		},
 
-		getAjaxData: function (url, success) {
+		getAjaxData: function (url, payload, success) {
+			if (typeof (payload) === 'function') {
+				if (typeof (success) === 'undefined') {
+					success = payload;
+					payload = undefined;
+				} else {
+					payload = payload();
+				}
+			}
 			jQuery.ajax(url, {
 				dataType: 'json',
+				data: payload,
 				success: function (data) {
 					handleAjaxSuccess(data, success);
 				}

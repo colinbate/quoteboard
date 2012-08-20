@@ -10,15 +10,22 @@ app.configure(function () {
         app.use(express.bodyParser());
 });
 
-app.get('/', function(req, res){
+app.get('/', function (req, res){
   res.render('index', {title: 'Quote Board'});
 });
 
-app.get('/quotes', function(req, res) {
+app.get('/quotes', function (req, res) {
 	res.send({ quotes: quotes.board.asArray(), lastId: quotes.board.lastId() });
 });
 
-app.post('/quotes', function(req, res) {
+app.get('/quotes/new', function (req, res) {
+	var lastId = req.query.lastId;
+	var newQuotes = quotes.board.getSince(lastId);
+	var lastLastId = quotes.board.lastId();
+	res.send({ quotes: newQuotes, lastId: lastLastId });
+});
+
+app.post('/quotes', function (req, res) {
 	if(req.body) {
 		var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day);
 		var lastId = req.body.lastId;
