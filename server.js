@@ -11,18 +11,30 @@ app.configure(function () {
         app.use(express.bodyParser());
 });
 
+var getError = function (errorMsg) {
+	return { err: { message: errorMsg } };
+};
+
+var boardOkay = function (req, res, next) {
+	if (!quotes.board.isOkay()) {
+		res.send(getError('The quoteboard is not available.'));
+		return;
+	}
+	next();
+};
+
 app.get('/', function (req, res){
   res.render('index', {title: 'Quote Board'});
 });
 
-app.get('/quotes', function (req, res) {
+app.get('/quotes', boardOkay, function (req, res) {
 	Q.all([quotes.board.asArray(), quotes.board.lastId()]).spread(function (list, lastId) {
 		console.log('Fetching quotes: list: ' + list + ' lastId: ' + lastId);
 		res.send({ quotes: list, lastId: lastId });
 	});
 });
 
-app.get('/quotes/new', function (req, res) {
+app.get('/quotes/new', boardOkay, function (req, res) {
 	var lastId = req.query.lastId;
 	var newQuotes = quotes.board.getSince(lastId);
 	var lastLastId = quotes.board.lastId();
@@ -31,7 +43,7 @@ app.get('/quotes/new', function (req, res) {
 	});
 });
 
-app.post('/quotes', function (req, res) {
+app.post('/quotes', boardOkay, function (req, res) {
 	if(req.body) {
 		var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day);
 		var lastId = req.body.lastId;
