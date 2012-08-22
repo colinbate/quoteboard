@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var quotes = require('./lib/quotelist');
+var Q = require('q');
 
 app.configure(function () {
         app.set('views', __dirname + '/views');
@@ -15,14 +16,19 @@ app.get('/', function (req, res){
 });
 
 app.get('/quotes', function (req, res) {
-	res.send({ quotes: quotes.board.asArray(), lastId: quotes.board.lastId() });
+	Q.all([quotes.board.asArray(), quotes.board.lastId()]).spread(function (list, lastId) {
+		console.log('Fetching quotes: list: ' + list + ' lastId: ' + lastId);
+		res.send({ quotes: list, lastId: lastId });
+	});
 });
 
 app.get('/quotes/new', function (req, res) {
 	var lastId = req.query.lastId;
 	var newQuotes = quotes.board.getSince(lastId);
 	var lastLastId = quotes.board.lastId();
-	res.send({ quotes: newQuotes, lastId: lastLastId });
+	Q.all([newQuotes, lastLastId]).spread(function (newq, llId) {
+		res.send({ quotes: newq, lastId: llId });
+	});
 });
 
 app.post('/quotes', function (req, res) {
@@ -32,7 +38,9 @@ app.post('/quotes', function (req, res) {
 		if (q.isValid()) {
 			var newQuotes = quotes.board.getSince(lastId, q);
 			var lastLastId = quotes.board.add(q);
-			res.send({ quotes: newQuotes, lastId: lastLastId });
+			Q.all([newQuotes, lastLastId]).spread(function (newq, llId) {
+				res.send({ quotes: newq, lastId: llId });
+			});
 		} else {
 			res.send({ err: { message: 'Quote is not valid' } });
 		}
