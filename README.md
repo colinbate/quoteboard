@@ -8,8 +8,10 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 
  * Add client-side validation (done)
  * Add server-side validation (done)
- * Add persistence (this is probably the most important, but not the most urgent)
- * Add error handlings of ajax calls (done)
+ * Add persistence (MongoDB, in progress)
+     * Create an ordering (id) for quotes
+     * Create a config file for the app to set up db and environments
+ * Add error handlings of ajax calls (done - could be better)
  * Make better looking
 	 * Add transitions when adding new items (done)
 	 * Improve the new quote form (better)
