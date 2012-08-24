@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var server = require('http').createServer(app);
 var quotes = require('./lib/quotelist');
 var Q = require('q');
 
@@ -9,6 +8,15 @@ app.configure(function () {
         app.set('view engine', 'ejs');
         app.use(express['static'](__dirname + '/public'));
         app.use(express.bodyParser());
+});
+
+app.configure('development', function () {
+	quotes.useMemoryStore();
+	//quotes.useMongoStore();
+});
+
+app.configure('production', function () {
+	quotes.useMongoStore();
 });
 
 var getError = function (errorMsg) {
@@ -59,4 +67,7 @@ app.post('/quotes', boardOkay, function (req, res) {
 	}
 });
 
-server.listen(process.env.PORT || 3000);
+var listenPort = process.env.PORT || 3000;
+app.listen(listenPort, function () {
+	console.log('Quoteboard started on port ' + listenPort + ' in ' + app.settings.env + ' mode');
+});
