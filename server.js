@@ -12,11 +12,11 @@ app.configure(function () {
 
 app.configure('development', function () {
 	quotes.useMemoryStore();
-	//quotes.useMongoStore();
+	//quotes.useMongoStore('localhost:27017/test');
 });
 
 app.configure('production', function () {
-	quotes.useMongoStore();
+	quotes.useMongoStore('localhost:27017/test');
 });
 
 var getError = function (errorMsg) {
@@ -37,7 +37,6 @@ app.get('/', function (req, res){
 
 app.get('/quotes', boardOkay, function (req, res) {
 	Q.all([quotes.board.asArray(), quotes.board.lastId()]).spread(function (list, lastId) {
-		console.log('Fetching quotes: list: ' + list + ' lastId: ' + lastId);
 		res.send({ quotes: list, lastId: lastId });
 	});
 });
