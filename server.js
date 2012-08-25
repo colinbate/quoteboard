@@ -55,9 +55,8 @@ app.post('/quotes', boardOkay, function (req, res) {
 		var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day);
 		var lastId = req.body.lastId;
 		if (q.isValid()) {
-			var newQuotes = quotes.board.getSince(lastId, q);
-			var lastLastId = quotes.board.add(q);
-			Q.all([newQuotes, lastLastId]).spread(function (newq, llId) {
+			var newQuotes = quotes.board.add(q, lastId);
+			Q.all(newQuotes).spread(function (newq, llId) {
 				res.send({ quotes: newq, lastId: llId });
 			});
 		} else {

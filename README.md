@@ -6,7 +6,6 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 
 ## Roadmap / TODO
 
- * Fix the `getSince()` for the MongoStore
  * Add the ability to provide context for quotes
  * Auto-completion for former "authors"
  * Create more appealing default theme
@@ -28,3 +27,4 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 	 * Format the date properly (done but hacky)
  * Support multi-line quotes (done)
  * Create IDs for quotes so that we can periodically check if new ones exist (done)
+ * Fix the `getSince()` for the MongoStore (done)
