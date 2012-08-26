@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var quotes = require('./lib/quotelist');
+var localize = require('./lib/localize');
 var Q = require('q');
 
 app.configure(function () {
@@ -8,6 +9,7 @@ app.configure(function () {
         app.set('view engine', 'ejs');
         app.use(express['static'](__dirname + '/public'));
         app.use(express.bodyParser());
+        app.locals.lang = localize.loadLanguage('en');
 });
 
 app.configure('development', function () {

@@ -1,0 +1,13 @@
+{
+	"title": "Quote Board",
+	"index" : {
+		"title": "Quote Board",
+		"newQuoteButton": "New Quote",
+		"sayingLabel": "",
+		"authorLabel": "Who said it?",
+		"dayLabel": "When?",
+		"addButton": "Add",
+		"cancelButton": "Cancel",
+		"noQuotes": "There are no quotes yet, why don't you add one?"
+	}
+}
