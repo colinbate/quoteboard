@@ -1,0 +1,120 @@
+@import "prefixer.less";
+
+/* Structure ------------- */
+
+body {
+	font-family: "Lucida Grande", "Arial", sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#quoteboard {
+	width:  900px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+header {
+	background-image: url(/images/head-bg.png);
+	border: 1px solid #ccc;
+	.border-radius(0 0 8px 8px);
+	position: relative;
+	padding: 0 20px;
+	margin-bottom: 10px;
+	#new-quote {
+		position: absolute;
+		top: 21px;
+		right: 20px;
+	}
+	#new-quote:hover {
+		color: #00f;
+	}
+	#entry {
+		top: 70px;
+		right: 20px;
+		.box-shadow(0 2px 5px #aaa);
+	}
+
+	#new-quote, button {
+		border: 1px solid #ccc;
+		.border-radius(6px);
+		.box-shadow(0 3px 7px #999);
+		text-decoration: none;
+		color: #444;
+		background-color: #fff;
+		padding: 8px 18px;
+	}
+}
+
+/* Quotes ----------------- */
+
+#quotelist {
+	list-style: none;
+	padding: 0;
+}
+
+.quote {
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	.border-radius(4px);
+	padding: 8px;
+
+
+	.saying {
+		font-weight: bold;
+		display: block
+	}
+	.author {
+		display: block;
+	}
+	.author:before {
+		content: '~ ';
+	}
+	.date {
+		font-size: 8px;
+		color: #808080;
+	}
+}
+
+#entry {
+	width: 500px;
+	position: absolute;
+	background-color: #fff;
+	border: 2px solid #444;
+	padding: 15px;
+
+	input, button, textarea {
+		font-size: 14pt;
+		padding: 5px;
+		border: 1px solid #ccc;
+		margin: 0;
+	}
+
+	label {
+		
+	}
+
+	#inputsaying {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.controls {
+		border-top: 1px dotted #888;
+		padding-top: 6px;
+		margin-top: 6px;
+
+		button {
+			margin-right: 15px;
+		}
+	}
+}
+
+#noquotes {
+	text-align: center;
+	color: #aaa;
+	font-style: italic;
+}
