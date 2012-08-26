@@ -8,8 +8,6 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 
  * Add the ability to provide context for quotes
  * Auto-completion for former "authors"
- * Create more appealing default theme
-     * Make the new quote button less in the way
  * Create branch with image upload support
 
 
@@ -25,6 +23,8 @@ Originally created as a introduction to node.js, I'd love for it to be useful en
 	 * Add transitions when adding new items (done)
 	 * Improve the new quote form (better)
 	 * Format the date properly (done but hacky)
+     * Create more appealing default theme (better)
+     * Make the new quote button less in the way (done)
  * Support multi-line quotes (done)
  * Create IDs for quotes so that we can periodically check if new ones exist (done)
  * Fix the `getSince()` for the MongoStore (done)

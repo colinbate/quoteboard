@@ -6,17 +6,19 @@
 		<link rel="stylesheet" href="/style/default.css" type="text/css">
     </head>
     <body>
-        <h1><%= lang.index.title %></h1>
 		<div id="quoteboard" style="display: none;" data-bind="visible: loaded">
-			<button data-bind="click: openNewQuote"><%= lang.index.newQuoteButton %></button>
-			<div id="entry" data-bind="visible: showNewQuote">
-				<form action="/quotes" method="post" data-bind="submit: saveQuote">
-					<label><textarea id="inputsaying" rows="3" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true"></textarea></label>
-					<label><input type="text" placeholder="<%= lang.index.authorLabel %>" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'"></label>
-					<label><input type="date" placeholder="<%= lang.index.dayLabel %>" data-bind="value: newDay"></label>
-					<div class="controls"><button type="submit" data-bind="enable: quoteValid"><%= lang.index.addButton %></button> <a href="#" data-bind="click: closeNewQuote"><%= lang.index.cancelButton %></a></div>
-				</form>
-			</div>
+			<header>
+				<h1><%= lang.index.title %></h1>
+				<a id="new-quote" href="#" data-bind="click: openNewQuote"><%= lang.index.newQuoteButton %></a>
+				<div id="entry" data-bind="visible: showNewQuote">
+					<form action="/quotes" method="post" data-bind="submit: saveQuote">
+						<label><textarea id="inputsaying" rows="3" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true"></textarea></label>
+						<label><input type="text" placeholder="<%= lang.index.authorLabel %>" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'"></label>
+						<label><input type="date" placeholder="<%= lang.index.dayLabel %>" data-bind="value: newDay"></label>
+						<div class="controls"><button type="submit" data-bind="enable: quoteValid"><%= lang.index.addButton %></button> <a href="#" data-bind="click: closeNewQuote"><%= lang.index.cancelButton %></a></div>
+					</form>
+				</div>
+			</header>
 			<ul id="quotelist" data-bind="foreach: { data: quotes, afterAdd: addQuote }">
                 <li class="quote">
                     <span class="saying" data-bind="text: saying"></span>
