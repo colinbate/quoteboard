@@ -2,19 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title><%= title %></title>
+        <title><%= lang.title %></title>
 		<link rel="stylesheet" href="/style/default.css" type="text/css">
     </head>
     <body>
-        <h1><%= title %></h1>
+        <h1><%= lang.index.title %></h1>
 		<div id="quoteboard" style="display: none;" data-bind="visible: loaded">
-			<button data-bind="click: openNewQuote">New Quote</button>
+			<button data-bind="click: openNewQuote"><%= lang.index.newQuoteButton %></button>
 			<div id="entry" data-bind="visible: showNewQuote">
 				<form action="/quotes" method="post" data-bind="submit: saveQuote">
 					<label><textarea id="inputsaying" rows="3" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true"></textarea></label>
-					<label><input type="text" placeholder="Who said it?" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'"></label>
-					<label><input type="date" placeholder="When?" data-bind="value: newDay"></label>
-					<div class="controls"><button type="submit" data-bind="enable: quoteValid">Add</button> <a href="#" data-bind="click: closeNewQuote">Cancel</a></div>
+					<label><input type="text" placeholder="<%= lang.index.authorLabel %>" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'"></label>
+					<label><input type="date" placeholder="<%= lang.index.dayLabel %>" data-bind="value: newDay"></label>
+					<div class="controls"><button type="submit" data-bind="enable: quoteValid"><%= lang.index.addButton %></button> <a href="#" data-bind="click: closeNewQuote"><%= lang.index.cancelButton %></a></div>
 				</form>
 			</div>
 			<ul id="quotelist" data-bind="foreach: { data: quotes, afterAdd: addQuote }">
@@ -25,12 +25,11 @@
                 </li>
             </ul>
             <div id="noquotes" data-bind="visible: quotes().length === 0">
-            	<p>There are no quotes yet, why don't you add one?</p>
+            	<p><%= lang.index.noQuotes %></p>
             </div>
 		</div>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.1.0.js" type="text/javascript"></script>
-		<!--<script src="/socket.io/socket.io.js"></script>-->
 		<script src="/js/noty/jquery.noty.js"></script>
 		<script src="/js/noty/layouts/top.js"></script>
 		<script src="/js/noty/themes/default.js"></script>
