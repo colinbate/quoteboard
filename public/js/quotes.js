@@ -45,12 +45,6 @@
 			}
 			
 			this.closeNewQuote();
-		},
-		upload: function () {
-			var self = this;
-			qb.util.postFile('/image', '#upImage', function (data) {
-				window.console.log(data);
-			});
 		}
 	};
 	

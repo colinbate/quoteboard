@@ -19,8 +19,7 @@
     "ejs": ">=0.8.0",
     "dateformat": "1.x.x",
     "q": "0.x.x",
-    "mongoskin": "0.x.x",
-    "formidable": "1.x.x"
+    "mongoskin": "0.x.x"
   },
   "devDependencies": {
   },

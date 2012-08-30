@@ -148,6 +148,9 @@ header button {
   background-clip: padding-box;
   padding: 8px;
 }
+.quote .image {
+  float: right;
+}
 .quote .saying {
   font-weight: bold;
   display: block;
@@ -161,6 +164,11 @@ header button {
 .quote .date {
   font-size: 8px;
   color: #808080;
+}
+.quote:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 #entry {
   width: 500px;
@@ -177,7 +185,10 @@ header button {
   border: 1px solid #ccc;
   margin: 0;
 }
-#entry #inputsaying {
+#entry textarea,
+#entry input[type="text"],
+#entry input[type="date"],
+#entry input[type="file"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
