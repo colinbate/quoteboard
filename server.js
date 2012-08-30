@@ -3,6 +3,8 @@ var app = express();
 var quotes = require('./lib/quotelist');
 var localize = require('./lib/localize');
 var Q = require('q');
+var formidable = require('formidable');
+var fs = require('fs');
 
 app.configure(function () {
         app.set('views', __dirname + '/views');
@@ -53,18 +55,25 @@ app.get('/quotes/new', boardOkay, function (req, res) {
 });
 
 app.post('/quotes', boardOkay, function (req, res) {
-	if(req.body) {
-		var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day);
-		var lastId = req.body.lastId;
-		if (q.isValid()) {
-			var newQuotes = quotes.board.add(q, lastId);
-			Q.all(newQuotes).spread(function (newq, llId) {
-				res.send({ quotes: newq, lastId: llId });
-			});
-		} else {
-			res.send({ err: { message: 'Quote is not valid' } });
+	Q.when(function () {
+		if (req.files && req.files.image) {
+			return quotes.board.saveImage(req.files.image, 'image/upload');
 		}
-	}
+		return undefined;
+	}, function (imageFile) {
+		if(req.body) {
+			var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day, undefined, imageFile);
+			var lastId = req.body.lastId;
+			if (q.isValid()) {
+				var newQuotes = quotes.board.add(q, lastId);
+				Q.all(newQuotes).spread(function (newq, llId) {
+					res.send({ quotes: newq, lastId: llId });
+				});
+			} else {
+				res.send({ err: { message: 'Quote is not valid' } });
+			}
+		}
+	});
 });
 
 var listenPort = process.env.PORT || 3000;

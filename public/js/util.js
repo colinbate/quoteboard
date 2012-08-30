@@ -98,6 +98,63 @@
 			});
 		},
 
+		postFile: function (url, field, success) {
+			if (typeof (field) === 'string') {
+				var $field = jQuery(field);
+				if ($field.length === 0) {
+					return;
+				}
+				field = $field[0];
+			} else {
+				field = field.jquery ? field[0] : field;
+			}
+			if (field.files.length < 1) {
+				return;
+			}
+			var fd = new FormData();
+			fd.append(field.name || 'image', field.files[0]);
+			jQuery.ajax(url, {
+				type: "POST",
+				data: fd,
+				processData: false,  // tell jQuery not to process the data
+				contentType: false   // tell jQuery not to set contentType
+			}).done(function (data) {
+				handleAjaxSuccess(data, success);
+			});
+		},
+
+		postForm: function (form, extra, success) {
+			if (typeof (form) === 'string') {
+				var $form = jQuery(form);
+				if ($form.length === 0) {
+					return;
+				}
+				form = $form[0];
+			} else {
+				form = form.jquery ? form[0] : form;
+			}
+			if (!form.action) {
+				return;
+			}
+			var url = form.action;
+			var fd = new FormData(form);
+			if (typeof (extra) === 'function') {
+				success = extra;
+			} else if (extra) {
+				for (var key in extra) {
+					fd.append(key, extra[key]);
+				}
+			}
+			jQuery.ajax(url, {
+				type: "POST",
+				data: fd,
+				processData: false,  // tell jQuery not to process the data
+				contentType: false   // tell jQuery not to set contentType
+			}).done(function (data) {
+				handleAjaxSuccess(data, success);
+			})
+		},
+
 		showError: showError,
 
 		showMessage: function (txt, afterClose) {

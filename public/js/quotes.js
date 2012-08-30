@@ -7,6 +7,7 @@
 	var quoteBoardModel = {
 		quotes: ko.observableArray([]),
 		lastId: undefined,
+		formdataSupport: window.FormData !== undefined,
 		showNewQuote: ko.observable(false),
 		loaded: ko.observable(false),
 		initialData: ko.observable(false),
@@ -28,16 +29,28 @@
 			if (!this.quoteValid()) {
 				return;
 			}
-			var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay(), lastId: this.lastId };
-			qb.util.postJsonData('/quotes', payload, function (data) {
+			var handleResult = function (data) {
 				if (data && data.quotes) {
 					qb.util.unshiftArray(self.quotes, data.quotes);
 				}
 				if (data) {
 					self.lastId = data.lastId;
 				}
-			});
+			};
+			if (this.formdataSupport) {
+				qb.util.postForm('#new-quote-form', {lastId: this.lastId}, handleResult);
+			} else {
+				var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay(), lastId: this.lastId };
+				qb.util.postJsonData('/quotes', payload, handleResult);
+			}
+			
 			this.closeNewQuote();
+		},
+		upload: function () {
+			var self = this;
+			qb.util.postFile('/image', '#upImage', function (data) {
+				window.console.log(data);
+			});
 		}
 	};
 	
