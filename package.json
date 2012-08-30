@@ -1,7 +1,7 @@
 {
   "name": "quoteboard",
   "description": "Simple quote board for an office environment",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "repository": {
     "type": "mercurial",
     "url": "http://code.orbisaccess.com/misc/quoteboard"
@@ -19,7 +19,8 @@
     "ejs": ">=0.8.0",
     "dateformat": "1.x.x",
     "q": "0.x.x",
-    "mongoskin": "0.x.x"
+    "mongoskin": "0.x.x",
+    "formidable": "1.x.x"
   },
   "devDependencies": {
   },
