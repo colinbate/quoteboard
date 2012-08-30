@@ -26,7 +26,7 @@
 			</header>
 			<ul id="quotelist" data-bind="foreach: { data: quotes, afterAdd: addQuote }">
                 <li class="quote">
-                	<span class="image" data-bind="if: image"><img data-bind="attr: { src: image }"></span>
+                	<span class="image" data-bind="if: $data.image"><img data-bind="attr: { src: '/images/upload/' + image }"></span>
                     <span class="saying" data-bind="text: saying"></span>
                     <span class="author" data-bind="text: author"></span>
                     <span class="date" data-bind="text: displayDate"></span>

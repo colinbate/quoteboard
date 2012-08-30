@@ -55,14 +55,15 @@ app.get('/quotes/new', boardOkay, function (req, res) {
 });
 
 app.post('/quotes', boardOkay, function (req, res) {
-	Q.when(function () {
-		if (req.files && req.files.image) {
-			return quotes.board.saveImage(req.files.image, 'image/upload');
-		}
-		return undefined;
-	}, function (imageFile) {
-		if(req.body) {
-			var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day, undefined, imageFile);
+	var imageFile;
+	if (req.files && req.files.image) {
+		console.log('Trying to save image.');
+		imageFile = quotes.saveImage(req.files.image, 'images/upload');
+	}
+	Q.when(imageFile, function (filename) {
+		console.log('Image file: ' + filename);
+		if (req.body) {
+			var q = new quotes.Quote(req.body.saying, req.body.author, req.body.day, undefined, filename);
 			var lastId = req.body.lastId;
 			if (q.isValid()) {
 				var newQuotes = quotes.board.add(q, lastId);
@@ -73,7 +74,9 @@ app.post('/quotes', boardOkay, function (req, res) {
 				res.send({ err: { message: 'Quote is not valid' } });
 			}
 		}
-	});
+	}, function (err) {
+		res.send(getError(err));
+	}).end();
 });
 
 var listenPort = process.env.PORT || 3000;
