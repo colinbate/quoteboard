@@ -3,7 +3,6 @@ var app = express();
 var quotes = require('./lib/quotelist');
 var localize = require('./lib/localize');
 var Q = require('q');
-var formidable = require('formidable');
 var fs = require('fs');
 
 app.configure(function () {

@@ -60,7 +60,9 @@ header {
 	.border-radius(4px);
 	padding: 8px;
 
-
+	.image {
+		float: right;
+	}
 	.saying {
 		font-weight: bold;
 		display: block
@@ -75,6 +77,12 @@ header {
 		font-size: 8px;
 		color: #808080;
 	}
+}
+
+.quote:after {
+	content: "";
+	display: table;
+	clear: both;
 }
 
 #entry {
@@ -95,7 +103,7 @@ header {
 		
 	}
 
-	#inputsaying {
+	textarea, input[type="text"], input[type="date"], input[type="file"] {
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
