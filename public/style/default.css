@@ -151,6 +151,9 @@ header button {
 .quote .image {
   float: right;
 }
+.quote .image img {
+  max-width: 882px;
+}
 .quote .saying {
   font-weight: bold;
   display: block;
