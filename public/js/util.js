@@ -155,6 +155,15 @@
 			})
 		},
 
+		resetFileField: function (wrapper) {
+			var $wrap = jQuery(wrapper);
+			$wrap.html($wrap.innerHTML);
+		},
+
+		hasImage: function (field) {
+			jQuery(field).val() != '';
+		},
+
 		showError: showError,
 
 		showMessage: function (txt, afterClose) {

@@ -1,0 +1,5 @@
+# nodemon ignore
+
+# Ignore public files
+/public/*
+/views/*

@@ -15,7 +15,7 @@
 						<label><textarea id="inputsaying" name="saying" rows="3" data-bind="value: newSaying, valueUpdate: 'afterkeydown', hasfocus: showNewQuote() === true"></textarea></label>
 						<label><input type="text" name="author" placeholder="<%= lang.index.authorLabel %>" data-bind="value: newAuthor, valueUpdate: 'afterkeydown'"></label>
 						<label><input type="date" name="day" placeholder="<%= lang.index.dayLabel %>" data-bind="value: newDay"></label>
-						<label data-bind="if: formdataSupport"><input type="file" name="image" id="upImage"></label>
+						<label data-bind="if: formdataSupport" id="imageWrap"><input type="file" name="image" id="upImage"></label>
 						<div class="controls">
 							<button type="submit" data-bind="enable: quoteValid"><%= lang.index.addButton %></button>
 							<a href="#" data-bind="click: closeNewQuote"><%= lang.index.cancelButton %></a>

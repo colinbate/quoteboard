@@ -22,6 +22,7 @@
 			this.newSaying('');
 			this.newAuthor('');
 			this.newDay('');
+			qb.util.resetFileField('#imageWrap');
 			this.showNewQuote(false);
 		},
 		saveQuote: function () {
@@ -37,17 +38,16 @@
 					self.lastId = data.lastId;
 				}
 			};
-			if (this.formdataSupport) {
+			if (this.formdataSupport && qb.util.hasImage('#upImage')) {
 				qb.util.postForm('#new-quote-form', {lastId: this.lastId}, handleResult);
 			} else {
 				var payload = { saying: this.newSaying(), author: this.newAuthor(), day: this.newDay(), lastId: this.lastId };
 				qb.util.postJsonData('/quotes', payload, handleResult);
 			}
-			
 			this.closeNewQuote();
 		}
 	};
-	
+
 	quoteBoardModel.quoteValid = ko.computed(function () {
 		return !!this.newSaying() && this.newSaying().length > 2 && !!this.newAuthor();
 	}, quoteBoardModel);
@@ -68,7 +68,7 @@
 				quoteBoardModel.lastId = data.lastId;
 			}
 		});
-	}
+	};
 
 	qb.util.getAjaxData('/quotes', function (data) {
 		if (data && data.quotes) {

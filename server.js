@@ -34,6 +34,10 @@ var boardOkay = function (req, res, next) {
 	next();
 };
 
+var hasImage = function (req) {
+	return req && req.files && req.files.image && req.files.image.size && req.files.image.name;
+}
+
 app.get('/', function (req, res){
   res.render('index', {title: 'Quote Board'});
 });
@@ -55,8 +59,7 @@ app.get('/quotes/new', boardOkay, function (req, res) {
 
 app.post('/quotes', boardOkay, function (req, res) {
 	var imageFile;
-	if (req.files && req.files.image) {
-		console.log('Trying to save image.');
+	if (hasImage(req)) {
 		imageFile = quotes.saveImage(req.files.image, 'images/upload');
 	}
 	Q.when(imageFile, function (filename) {
