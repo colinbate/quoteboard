@@ -157,11 +157,11 @@
 
 		resetFileField: function (wrapper) {
 			var $wrap = jQuery(wrapper);
-			$wrap.html($wrap.innerHTML);
+			$wrap.html($wrap.html());
 		},
 
 		hasImage: function (field) {
-			jQuery(field).val() != '';
+			return jQuery(field).val() !== '';
 		},
 
 		showError: showError,
